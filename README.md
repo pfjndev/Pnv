@@ -24,9 +24,6 @@
 
 ### <strong> <em> Autor: [PfJn](https://github.com/pfjndev) </em> </strong>
 
-### <strong> <em> Repositório Github: [ https://github.com/pfjndev/AdvancedProgramming ] </strong> </em> <br></br> 
-
-
 #
 
 ## <strong>National Vaccination Plan<strong></strong> <br></br>
@@ -52,5 +49,3 @@
 
 
 ### <strong> <em>Author: [PfJn](https://github.com/pfjndev)</em> </strong>
-
-### <strong> <em> Github Repo: [ https://github.com/pfjndev/AdvancedProgramming ] </em> </strong>
