@@ -4,10 +4,10 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-private const val NOME_BASE_DADOS = "pnv.db"
+
 private const val VERSAO_BASE_DADOS = 1
 
-class BdLivrosOpenHelper(context: Context?) : SQLiteOpenHelper(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS) {
+class BdPnvOpenHelper(context: Context?) : SQLiteOpenHelper(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS) {
     /**
      * Called when the database is created for the first time. This is where the
      * creation of tables and the initial population of the tables should happen.
@@ -16,8 +16,8 @@ class BdLivrosOpenHelper(context: Context?) : SQLiteOpenHelper(context, NOME_BAS
      */
     override fun onCreate(db: SQLiteDatabase?) {
         requireNotNull(db)
-        //TabelaDoencas(db).cria()
-        //TabelaVacinas(db).cria()
+        TabelaDoencas(db).cria()
+        TabelaVacinas(db).cria()
     }
 
     /**
@@ -43,6 +43,9 @@ class BdLivrosOpenHelper(context: Context?) : SQLiteOpenHelper(context, NOME_BAS
      * @param newVersion The new database version.
      */
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        // TODO: On Upgrade, execute functions... 
+        // TODO: On Upgrade, execute functions...
+    }
+    companion object {
+        const val NOME_BASE_DADOS = "pnv.db"
     }
 }
