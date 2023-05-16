@@ -1,6 +1,7 @@
 package dev.pfjn.pnv
 
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns
 
 class TabelaDoencas(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     override fun cria() {
@@ -10,7 +11,9 @@ class TabelaDoencas(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     }
 
     companion object {
-        const val NOME_TABELA = "Doencas"
+        const val NOME_TABELA = "Doenca"
         const val CAMPO_DESCRICAO = "Descricao"
+
+        val CAMPOS = arrayOf(BaseColumns._ID, CAMPO_DESCRICAO)
     }
 }
