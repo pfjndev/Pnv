@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="dev.pfjn.pnv.FirstFragment"
+        android:name="dev.pfjn.pnv.MainMenuFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_main_menu">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="dev.pfjn.pnv.SecondFragment"
+        android:name="dev.pfjn.pnv.AboutFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_about">
 

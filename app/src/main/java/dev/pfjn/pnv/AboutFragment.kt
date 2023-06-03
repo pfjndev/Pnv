@@ -11,7 +11,7 @@ import dev.pfjn.pnv.databinding.FragmentAboutBinding
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class AboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null
 
