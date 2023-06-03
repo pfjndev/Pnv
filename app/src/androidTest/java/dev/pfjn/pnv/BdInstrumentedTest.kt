@@ -31,6 +31,14 @@ class BdInstrumentedTest {
         val bd = openHelper.readableDatabase
         assert(bd.isOpen)
     }
+
+    @Test
+    fun consegueFecharBaseDados() {
+        val openHelper = BdPnvOpenHelper(getAppContext())
+        val bd = openHelper.readableDatabase
+        assert(!bd.isOpen)
+    }
+
     private fun getWritableDatabase() : SQLiteDatabase {
         val openHelper = BdPnvOpenHelper(getAppContext())
         return openHelper.writableDatabase
@@ -143,9 +151,89 @@ class BdInstrumentedTest {
             null,
             TabelaVacinas.CAMPO_NOME
         )
-
         assert(cursorTodasVacinas.count > 1)
     }
+
+    @Test
+    fun consegueAlterarDoencas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca("...")
+        insereDoenca(bd, doenca)
+
+        doenca.descricao = "VHB"
+
+        val registosAlterados = TabelaDoencas(bd).altera(
+            doenca.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(doenca.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+    }
+
+    @Test
+    fun consegueAlterarLivros() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca ("VHB")
+        insereDoenca(bd, doenca)
+
+        val vacina = Vacina("Vírus Hepatite B", doenca.id, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        insereVacina(bd, vacina)
+
+        val novaDoenca = Doenca("Hib")
+        insereDoenca(bd, novaDoenca)
+
+        val novaVacina = Vacina("Haemophilus influenzae tipo b", novaDoenca.id, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
+        insereVacina(bd, novaVacina)
+
+        vacina.idDoenca = novaDoenca.id
+        vacina.nome = novaVacina.nome
+        vacina.idade = novaVacina.idade
+
+        val registosAlterados = TabelaVacinas(bd).altera(
+            vacina.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(vacina.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+    }
+
+    @Test
+    fun consegueApagarDoencas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca("...")
+        insereDoenca(bd, doenca)
+
+        val registosEliminados = TabelaDoencas(bd).elimina(
+            "${BaseColumns._ID}=?",
+            arrayOf(doenca.id.toString())
+        )
+
+        assertEquals(1, registosEliminados)
+    }
+
+    @Test
+    fun consegueApagarVacinas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca("VHB")
+        insereDoenca(bd, doenca)
+
+        val vacina = Vacina("Vírus Hepatite B", doenca.id, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        insereVacina(bd, vacina)
+
+        val registosEliminados = TabelaVacinas(bd).elimina(
+            "${BaseColumns._ID}=?",
+            arrayOf(vacina.id.toString())
+        )
+
+        assertEquals(1, registosEliminados)
+    }
+
     @Test
     fun useAppContext() {
         // Context of the app under test.
