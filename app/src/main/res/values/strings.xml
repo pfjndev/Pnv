@@ -2,8 +2,8 @@
     <string name="app_name">Pnv</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="main_menu_label">Menu principal</string>
+    <string name="about_fragment_label">Sobre</string>
     <string name="sobre">Sobre</string>
     <string name="anterior">Anterior</string>
 
@@ -11,4 +11,7 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="doencas">Doenças</string>
     <string name="vacinas">Vacinas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lista_vacinas_label">Vacinas</string>
 </resources>
