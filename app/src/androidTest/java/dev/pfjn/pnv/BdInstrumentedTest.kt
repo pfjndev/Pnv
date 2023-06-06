@@ -173,7 +173,7 @@ class BdInstrumentedTest {
     }
 
     @Test
-    fun consegueAlterarLivros() {
+    fun consegueAlterarVacinas() {
         val bd = getWritableDatabase()
 
         val doenca = Doenca ("VHB")
