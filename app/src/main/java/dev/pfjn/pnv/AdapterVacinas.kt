@@ -3,17 +3,28 @@ package dev.pfjn.pnv
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class AdapterVacinas : RecyclerView.Adapter<AdapterVacinas.ViewHolderVacina>() {
+class AdapterVacinas(val fragment: ListaVacinasFragment) : RecyclerView.Adapter<AdapterVacinas.ViewHolderVacina>() {
     var cursor: Cursor? = null
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-    inner class ViewHolderVacina(itemView: View) : ViewHolder(itemView) {
+    inner class ViewHolderVacina(contentor: View) : ViewHolder(contentor) {
+        private val textViewNome = contentor.findViewById<TextView>(R.id.textViewNome)
+        private val textViewDoencas = contentor.findViewById<TextView>(R.id.textViewDoencas)
+        private val textViewIdades = contentor.findViewById<TextView>(R.id.textViewIdades)
 
+        internal var vacina: Vacina? = null
+            set(value) {
+                field = value
+                textViewNome.text = vacina?.nome ?: ""
+                textViewDoencas.text = vacina?.idDoenca.toString() ?: ""
+                textViewIdades.text = vacina?.idade ?: ""
+            }
     }
 
     /**
@@ -40,7 +51,7 @@ class AdapterVacinas : RecyclerView.Adapter<AdapterVacinas.ViewHolderVacina>() {
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderVacina {
-        TODO("Not yet implemented")
+        return ViewHolderVacina(fragment.layoutInflater.inflate(R.layout.item_vacina, parent, false))
     }
 
     /**
@@ -49,7 +60,7 @@ class AdapterVacinas : RecyclerView.Adapter<AdapterVacinas.ViewHolderVacina>() {
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return cursor?.count ?: 0
     }
 
     /**
@@ -74,6 +85,7 @@ class AdapterVacinas : RecyclerView.Adapter<AdapterVacinas.ViewHolderVacina>() {
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolderVacina, position: Int) {
-        TODO("Not yet implemented")
+        cursor!!.moveToPosition(position)
+        holder.vacina = Vacina.fromCursor(cursor!!)
     }
 }

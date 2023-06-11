@@ -20,7 +20,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewIdade"
+        android:id="@+id/textViewDoencas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:paddingBottom="8dp"
+        android:text="@string/doenca"
+        app:layout_constraintStart_toStartOf="@id/textViewNome"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+
+    <TextView
+        android:id="@+id/textViewIdades"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -28,6 +38,7 @@
         android:paddingBottom="8dp"
         android:text="@string/idade"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/textViewNome"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+        app:layout_constraintStart_toStartOf="@+id/textViewDoencas"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDoencas" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
