@@ -62,13 +62,13 @@ class BdInstrumentedTest {
         val doenca = Doenca ("VHB")
         insereDoenca(bd, doenca)
 
-        val vacina1 = Vacina("Vírus Hepatite B", doenca.id, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        val vacina1 = Vacina("Vírus Hepatite B", doenca, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
         insereVacina(bd, vacina1)
 
         val doenca2 = Doenca("Hib")
         insereDoenca(bd, doenca2)
 
-        val vacina2 = Vacina("Haemophilus influenzae tipo b", doenca2.id, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
+        val vacina2 = Vacina("Haemophilus influenzae tipo b", doenca2, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
         insereVacina(bd, vacina2)
     }
 
@@ -123,14 +123,14 @@ class BdInstrumentedTest {
         val doenca = Doenca("VIP")
         insereDoenca(bd, doenca)
 
-        val vacina1 = Vacina("Poliomelite", doenca.id,"1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses, 5 Dose: 5 anos")
+        val vacina1 = Vacina("Poliomelite", doenca,"1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses, 5 Dose: 5 anos")
         insereVacina(bd, vacina1)
 
         val tabelaVacinas = TabelaVacinas(bd)
 
         val cursor = tabelaVacinas.consulta(
             TabelaVacinas.CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaVacinas.CAMPO_ID}=?",
             arrayOf(vacina1.id.toString()),
             null,
             null,
@@ -179,16 +179,16 @@ class BdInstrumentedTest {
         val doenca = Doenca ("VHB")
         insereDoenca(bd, doenca)
 
-        val vacina = Vacina("Vírus Hepatite B", doenca.id, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        val vacina = Vacina("Vírus Hepatite B", doenca, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
         insereVacina(bd, vacina)
 
         val novaDoenca = Doenca("Hib")
         insereDoenca(bd, novaDoenca)
 
-        val novaVacina = Vacina("Haemophilus influenzae tipo b", novaDoenca.id, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
+        val novaVacina = Vacina("Haemophilus influenzae tipo b", novaDoenca, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
         insereVacina(bd, novaVacina)
 
-        vacina.idDoenca = novaDoenca.id
+        vacina.doenca = novaDoenca
         vacina.nome = novaVacina.nome
         vacina.idade = novaVacina.idade
 
@@ -223,7 +223,7 @@ class BdInstrumentedTest {
         val doenca = Doenca("VHB")
         insereDoenca(bd, doenca)
 
-        val vacina = Vacina("Vírus Hepatite B", doenca.id, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        val vacina = Vacina("Vírus Hepatite B", doenca, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
         insereVacina(bd, vacina)
 
         val registosEliminados = TabelaVacinas(bd).elimina(

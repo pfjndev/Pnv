@@ -22,7 +22,7 @@ class AdapterVacinas(val fragment: ListaVacinasFragment) : RecyclerView.Adapter<
             set(value) {
                 field = value
                 textViewNome.text = vacina?.nome ?: ""
-                textViewDoencas.text = vacina?.idDoenca.toString() ?: ""
+                textViewDoencas.text = vacina?.doenca?.descricao ?: ""
                 textViewIdades.text = vacina?.idade ?: ""
             }
     }

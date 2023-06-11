@@ -6,7 +6,7 @@ import android.provider.BaseColumns
 
 class Vacina (
     var nome: String,
-    var idDoenca: Long,
+    var doenca: Doenca,
     var idade: String,
     var id: Long = -1
 ) {
@@ -15,7 +15,7 @@ class Vacina (
 
         valores.put(TabelaVacinas.CAMPO_NOME, nome)
         valores.put(TabelaVacinas.CAMPO_IDADE, idade)
-        valores.put(TabelaVacinas.CAMPO_FK_DOENCAS, idDoenca)
+        valores.put(TabelaVacinas.CAMPO_FK_DOENCAS, doenca.id)
 
         return valores
     }
@@ -26,13 +26,15 @@ class Vacina (
             val posNome = cursor.getColumnIndex(TabelaVacinas.CAMPO_NOME)
             val posIdade = cursor.getColumnIndex(TabelaVacinas.CAMPO_IDADE)
             val posDoencaFK = cursor.getColumnIndex(TabelaVacinas.CAMPO_FK_DOENCAS)
+            val posDescDoenca = cursor.getColumnIndex(TabelaVacinas.CAMPO_DESC_DOENCA)
 
             val id = cursor.getLong(posId)
             val nome = cursor.getString(posNome)
             val idade = cursor.getString(posIdade)
             val doencaId = cursor.getLong(posDoencaFK)
+            val descricaoDoenca = cursor.getString(posDescDoenca)
 
-            return Vacina(nome, doencaId, idade, id)
+            return Vacina(nome, Doenca(descricaoDoenca, doencaId), idade, id)
         }
     }
 }
