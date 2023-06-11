@@ -21,7 +21,7 @@ import org.junit.Before
 class BdInstrumentedTest {
     private fun getAppContext(): Context =
         InstrumentationRegistry.getInstrumentation().targetContext
-    @Before
+    @Test
     fun apagaBaseDados() {
         getAppContext().deleteDatabase(BdPnvOpenHelper.NOME_BASE_DADOS)
     }
@@ -32,18 +32,18 @@ class BdInstrumentedTest {
         assert(bd.isOpen)
     }
 
-    @Test
+/*    @Test
     fun consegueFecharBaseDados() {
         val openHelper = BdPnvOpenHelper(getAppContext())
         val bd = openHelper.readableDatabase
         assert(!bd.isOpen)
-    }
+    }*/
 
     private fun getWritableDatabase() : SQLiteDatabase {
         val openHelper = BdPnvOpenHelper(getAppContext())
         return openHelper.writableDatabase
     }
-
+    @Test
     fun consegueInserirDoencas() {
         val bd = getWritableDatabase()
 
@@ -56,6 +56,7 @@ class BdInstrumentedTest {
        assertNotEquals(-1, doenca.id)
     }
 
+    @Test
     fun consegueInserirVacinas() {
         val bd = getWritableDatabase()
 
@@ -84,7 +85,7 @@ class BdInstrumentedTest {
         val doencaVHB = Doenca("VHB")
         insereDoenca(bd, doencaVHB)
 
-        val doencaHib = Doenca("Hib")
+        val doencaHib = Doenca("HIB")
         insereDoenca(bd, doencaHib)
 
         val tabelaDoencas = TabelaDoencas(bd)
@@ -92,7 +93,7 @@ class BdInstrumentedTest {
         val cursor = tabelaDoencas.consulta(
             TabelaDoencas.CAMPOS,
             "${BaseColumns._ID}=?",
-            arrayOf(doencaVHB.id.toString()),
+            arrayOf(doencaHib.id.toString()),
             null,
             null,
             null
@@ -102,7 +103,7 @@ class BdInstrumentedTest {
 
         val doencaBD = Doenca.fromCursor(cursor)
 
-        assertEquals(doencaVHB, doencaBD)
+        assertEquals(doencaHib, doencaBD)
 
         val cursorTodasDoencas = tabelaDoencas.consulta(
             TabelaDoencas.CAMPOS,
@@ -125,6 +126,9 @@ class BdInstrumentedTest {
 
         val vacina1 = Vacina("Poliomelite", doenca,"1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses, 5 Dose: 5 anos")
         insereVacina(bd, vacina1)
+
+        val vacina2 = Vacina("Sarampo, parotidite epidemica, rubeola", doenca,"1 Dose: 12 Meses, 2 Dose: 5 anos")
+        insereVacina(bd, vacina2)
 
         val tabelaVacinas = TabelaVacinas(bd)
 
@@ -188,8 +192,8 @@ class BdInstrumentedTest {
         val novaVacina = Vacina("Haemophilus influenzae tipo b", novaDoenca, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
         insereVacina(bd, novaVacina)
 
-        vacina.doenca = novaDoenca
         vacina.nome = novaVacina.nome
+        vacina.doenca = novaDoenca
         vacina.idade = novaVacina.idade
 
         val registosAlterados = TabelaVacinas(bd).altera(

@@ -7,15 +7,7 @@ import android.provider.BaseColumns
 
 class TabelaVacinas(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     override fun cria() {
-        db.execSQL(
-            "CREATE TABLE $NOME_TABELA " +
-                    "($CHAVE_TABELA, " +
-                    " $CAMPO_NOME TEXT NOT NULL, " +
-                    " $CAMPO_IDADE, " +
-                    " $CAMPO_FK_DOENCAS INTEGER NOT NULL," +
-                    " FOREIGN KEY ($CAMPO_FK_DOENCAS)" +
-                    " REFERENCES ${TabelaDoencas.NOME_TABELA}(${BaseColumns._ID}) " +
-                    " ON DELETE RESTRICT)")
+        db.execSQL("CREATE TABLE $NOME_TABELA ($CHAVE_TABELA, $CAMPO_NOME TEXT NOT NULL, $CAMPO_IDADE TEXT, $CAMPO_FK_DOENCAS INTEGER NOT NULL, FOREIGN KEY ($CAMPO_FK_DOENCAS) REFERENCES ${TabelaDoencas.NOME_TABELA}(${BaseColumns._ID}) ON DELETE RESTRICT)")
     }
 
     override fun consulta(
@@ -33,11 +25,11 @@ class TabelaVacinas(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     }
 
     companion object {
-        const val NOME_TABELA = "Vacina"
+        const val NOME_TABELA = "vacinas"
 
         const val CAMPO_ID = "$NOME_TABELA.${BaseColumns._ID}"
-        const val CAMPO_NOME = "Nome"
-        const val CAMPO_IDADE = "Idade"
+        const val CAMPO_NOME = "nome"
+        const val CAMPO_IDADE = "idade"
         const val CAMPO_FK_DOENCAS = "id_vacina"
         const val CAMPO_DESC_DOENCA = TabelaDoencas.CAMPO_DESCRICAO
 
