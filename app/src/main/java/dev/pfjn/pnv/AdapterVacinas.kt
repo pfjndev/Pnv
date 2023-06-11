@@ -35,6 +35,7 @@ class AdapterVacinas(val fragment: ListaVacinasFragment) : RecyclerView.Adapter<
 
         fun seleciona() {
             viewHolderSelecionado = this
+            fragment.vacinaSelecionada = vacina
             itemView.setBackgroundResource(R.color.item_selecionado)
         }
         fun desSeleciona() {

@@ -24,6 +24,8 @@ class ListaVacinasFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    var vacinaSelecionada : Vacina? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

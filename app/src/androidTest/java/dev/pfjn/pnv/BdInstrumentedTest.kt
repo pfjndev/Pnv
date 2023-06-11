@@ -21,7 +21,7 @@ import org.junit.Before
 class BdInstrumentedTest {
     private fun getAppContext(): Context =
         InstrumentationRegistry.getInstrumentation().targetContext
-    @Test
+    @Before
     fun apagaBaseDados() {
         getAppContext().deleteDatabase(BdPnvOpenHelper.NOME_BASE_DADOS)
     }
@@ -236,12 +236,5 @@ class BdInstrumentedTest {
         )
 
         assertEquals(1, registosEliminados)
-    }
-
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("dev.pfjn.pnv", appContext.packageName)
     }
 }
