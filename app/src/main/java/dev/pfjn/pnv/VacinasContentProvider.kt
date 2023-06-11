@@ -274,13 +274,17 @@ class VacinasContentProvider : ContentProvider() {
     companion object {
         private const val AUTORIDADE = "dev.pfjn.pnv"
 
-        const val DOENCAS = "doencas"
-        const val VACINAS = "vacinas"
+        private const val DOENCAS = "doencas"
+        private const val VACINAS = "vacinas"
 
         private const val URI_DOENCAS = 100
         private const val URI_DOENCA_ID = 101
         private const val URI_VACINAS = 200
         private const val URI_VACINA_ID = 201
+
+        private val ENDERECO_BASE = Uri.parse("content://$AUTORIDADE")
+        val ENDERECO_DOENCAS = Uri.withAppendedPath(ENDERECO_BASE, DOENCAS)
+        val ENDERECO_VACINAS = Uri.withAppendedPath(ENDERECO_BASE, VACINAS)
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTORIDADE, DOENCAS, URI_DOENCAS)
