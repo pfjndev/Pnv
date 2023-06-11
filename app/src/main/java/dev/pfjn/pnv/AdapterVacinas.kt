@@ -18,6 +18,13 @@ class AdapterVacinas(val fragment: ListaVacinasFragment) : RecyclerView.Adapter<
         private val textViewDoencas = contentor.findViewById<TextView>(R.id.textViewDoencas)
         private val textViewIdades = contentor.findViewById<TextView>(R.id.textViewIdades)
 
+        init {
+            contentor.setOnClickListener {
+                viewHolderSelecionado?.desSeleciona()
+                seleciona()
+            }
+        }
+
         internal var vacina: Vacina? = null
             set(value) {
                 field = value
@@ -25,7 +32,17 @@ class AdapterVacinas(val fragment: ListaVacinasFragment) : RecyclerView.Adapter<
                 textViewDoencas.text = vacina?.doenca?.descricao ?: ""
                 textViewIdades.text = vacina?.idade ?: ""
             }
+
+        fun seleciona() {
+            viewHolderSelecionado = this
+            itemView.setBackgroundResource(R.color.item_selecionado)
+        }
+        fun desSeleciona() {
+            itemView.setBackgroundResource(android.R.color.white)
+        }
     }
+
+    private var viewHolderSelecionado : ViewHolderVacina? = null
 
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
