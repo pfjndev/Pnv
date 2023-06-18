@@ -3,26 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/MainMenuFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="dev.pfjn.pnv.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/MainMenuFragment"
+        android:name="dev.pfjn.pnv.MainMenuFragment"
+        android:label="@string/main_menu_label"
+        tools:layout="@layout/fragment_main_menu">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_MainMenuFragment_to_AboutFragment"
+            app:destination="@id/AboutFragment" />
+        <action
+            android:id="@+id/action_MainMenuFragment_to_ListaVacinasFragment"
+            app:destination="@+id/ListaVacinasFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="dev.pfjn.pnv.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/AboutFragment"
+        android:name="dev.pfjn.pnv.AboutFragment"
+        android:label="@string/about_fragment_label"
+        tools:layout="@layout/fragment_about">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_AboutFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ListaVacinasFragment"
+        android:name="dev.pfjn.pnv.ListaVacinasFragment"
+        android:label="@string/lista_vacinas_label"
+        tools:layout="@layout/fragment_lista_vacinas">
+        <action
+            android:id="@+id/ListaVacinasFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
     </fragment>
 </navigation>

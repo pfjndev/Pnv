@@ -31,11 +31,19 @@ class BdInstrumentedTest {
         val bd = openHelper.readableDatabase
         assert(bd.isOpen)
     }
+
+/*    @Test
+    fun consegueFecharBaseDados() {
+        val openHelper = BdPnvOpenHelper(getAppContext())
+        val bd = openHelper.readableDatabase
+        assert(!bd.isOpen)
+    }*/
+
     private fun getWritableDatabase() : SQLiteDatabase {
         val openHelper = BdPnvOpenHelper(getAppContext())
         return openHelper.writableDatabase
     }
-
+    @Test
     fun consegueInserirDoencas() {
         val bd = getWritableDatabase()
 
@@ -48,19 +56,20 @@ class BdInstrumentedTest {
        assertNotEquals(-1, doenca.id)
     }
 
+    @Test
     fun consegueInserirVacinas() {
         val bd = getWritableDatabase()
 
         val doenca = Doenca ("VHB")
         insereDoenca(bd, doenca)
 
-        val vacina1 = Vacina("Vírus Hepatite B", doenca.id, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        val vacina1 = Vacina("Vírus Hepatite B", doenca, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
         insereVacina(bd, vacina1)
 
         val doenca2 = Doenca("Hib")
         insereDoenca(bd, doenca2)
 
-        val vacina2 = Vacina("Haemophilus influenzae tipo b", doenca2.id, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
+        val vacina2 = Vacina("Haemophilus influenzae tipo b", doenca2, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
         insereVacina(bd, vacina2)
     }
 
@@ -76,7 +85,7 @@ class BdInstrumentedTest {
         val doencaVHB = Doenca("VHB")
         insereDoenca(bd, doencaVHB)
 
-        val doencaHib = Doenca("Hib")
+        val doencaHib = Doenca("HIB")
         insereDoenca(bd, doencaHib)
 
         val tabelaDoencas = TabelaDoencas(bd)
@@ -84,7 +93,7 @@ class BdInstrumentedTest {
         val cursor = tabelaDoencas.consulta(
             TabelaDoencas.CAMPOS,
             "${BaseColumns._ID}=?",
-            arrayOf(doencaVHB.id.toString()),
+            arrayOf(doencaHib.id.toString()),
             null,
             null,
             null
@@ -94,7 +103,7 @@ class BdInstrumentedTest {
 
         val doencaBD = Doenca.fromCursor(cursor)
 
-        assertEquals(doencaVHB, doencaBD)
+        assertEquals(doencaHib, doencaBD)
 
         val cursorTodasDoencas = tabelaDoencas.consulta(
             TabelaDoencas.CAMPOS,
@@ -115,14 +124,17 @@ class BdInstrumentedTest {
         val doenca = Doenca("VIP")
         insereDoenca(bd, doenca)
 
-        val vacina1 = Vacina("Poliomelite", doenca.id,"1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses, 5 Dose: 5 anos")
+        val vacina1 = Vacina("Poliomelite", doenca,"1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses, 5 Dose: 5 anos")
         insereVacina(bd, vacina1)
+
+        val vacina2 = Vacina("Sarampo, parotidite epidemica, rubeola", doenca,"1 Dose: 12 Meses, 2 Dose: 5 anos")
+        insereVacina(bd, vacina2)
 
         val tabelaVacinas = TabelaVacinas(bd)
 
         val cursor = tabelaVacinas.consulta(
             TabelaVacinas.CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaVacinas.CAMPO_ID}=?",
             arrayOf(vacina1.id.toString()),
             null,
             null,
@@ -143,13 +155,86 @@ class BdInstrumentedTest {
             null,
             TabelaVacinas.CAMPO_NOME
         )
-
         assert(cursorTodasVacinas.count > 1)
     }
+
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("dev.pfjn.pnv", appContext.packageName)
+    fun consegueAlterarDoencas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca("...")
+        insereDoenca(bd, doenca)
+
+        doenca.descricao = "VHB"
+
+        val registosAlterados = TabelaDoencas(bd).altera(
+            doenca.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(doenca.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+    }
+
+    @Test
+    fun consegueAlterarVacinas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca ("VHB")
+        insereDoenca(bd, doenca)
+
+        val vacina = Vacina("Vírus Hepatite B", doenca, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        insereVacina(bd, vacina)
+
+        val novaDoenca = Doenca("Hib")
+        insereDoenca(bd, novaDoenca)
+
+        val novaVacina = Vacina("Haemophilus influenzae tipo b", novaDoenca, "1 Dose: 2 Meses, 2 Dose: 4 Meses, 3 Dose: 6 Meses, 4 Dose: 18 Meses")
+        insereVacina(bd, novaVacina)
+
+        vacina.nome = novaVacina.nome
+        vacina.doenca = novaDoenca
+        vacina.idade = novaVacina.idade
+
+        val registosAlterados = TabelaVacinas(bd).altera(
+            vacina.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(vacina.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+    }
+
+    @Test
+    fun consegueApagarDoencas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca("...")
+        insereDoenca(bd, doenca)
+
+        val registosEliminados = TabelaDoencas(bd).elimina(
+            "${BaseColumns._ID}=?",
+            arrayOf(doenca.id.toString())
+        )
+
+        assertEquals(1, registosEliminados)
+    }
+
+    @Test
+    fun consegueApagarVacinas() {
+        val bd = getWritableDatabase()
+
+        val doenca = Doenca("VHB")
+        insereDoenca(bd, doenca)
+
+        val vacina = Vacina("Vírus Hepatite B", doenca, "1 Dose: Nascimento, 2 Dose: 2 Meses, 3 Dose: 6 Meses")
+        insereVacina(bd, vacina)
+
+        val registosEliminados = TabelaVacinas(bd).elimina(
+            "${BaseColumns._ID}=?",
+            arrayOf(vacina.id.toString())
+        )
+
+        assertEquals(1, registosEliminados)
     }
 }
