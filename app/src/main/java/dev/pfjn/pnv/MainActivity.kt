@@ -16,6 +16,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    var idMenuAtual : Int = R.menu.menu_main
+        set(value) {
+            if (value != field) {
+                field = value
+                invalidateOptionsMenu()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)

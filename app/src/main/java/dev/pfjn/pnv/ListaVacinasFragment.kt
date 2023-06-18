@@ -54,8 +54,9 @@ class ListaVacinasFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         val loader = LoaderManager.getInstance(this)
         loader.initLoader(ID_LOADER_VACINAS, null, this)
-    }
-    companion object {
+
+        val activity = activity as MainActivity
+        activity.idMenuAtual = R.menu.menu_lista_vacinas
     }
 
     /**
