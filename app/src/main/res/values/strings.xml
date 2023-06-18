@@ -17,4 +17,7 @@
     <string name="nome">HPV</string>
     <string name="doenca">Doencas</string>
     <string name="idade">Idades</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
 </resources>
