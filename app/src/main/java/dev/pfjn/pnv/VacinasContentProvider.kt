@@ -8,6 +8,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
 
+@Suppress("KDocUnresolvedReference", "UNCHECKED_CAST")
 class VacinasContentProvider : ContentProvider() {
     private var bdOpenHelper : BdPnvOpenHelper? = null
 
@@ -283,8 +284,8 @@ class VacinasContentProvider : ContentProvider() {
         private const val URI_VACINA_ID = 201
 
         private val ENDERECO_BASE = Uri.parse("content://$AUTORIDADE")
-        val ENDERECO_DOENCAS = Uri.withAppendedPath(ENDERECO_BASE, DOENCAS)
-        val ENDERECO_VACINAS = Uri.withAppendedPath(ENDERECO_BASE, VACINAS)
+        val ENDERECO_DOENCAS: Uri = Uri.withAppendedPath(ENDERECO_BASE, DOENCAS)
+        val ENDERECO_VACINAS: Uri = Uri.withAppendedPath(ENDERECO_BASE, VACINAS)
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTORIDADE, DOENCAS, URI_DOENCAS)

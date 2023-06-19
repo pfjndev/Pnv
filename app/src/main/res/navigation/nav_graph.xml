@@ -36,5 +36,17 @@
         <action
             android:id="@+id/ListaVacinasFragment_to_MainMenuFragment"
             app:destination="@id/MainMenuFragment" />
+        <action
+            android:id="@+id/action_ListaVacinasFragment_to_editarVacinaFragment"
+            app:destination="@id/editarVacinaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarVacinaFragment"
+        android:name="dev.pfjn.pnv.EditarVacinaFragment"
+        android:label="@string/nova_vacina_label"
+        tools:layout="@layout/fragment_editar_vacina">
+        <action
+            android:id="@+id/action_editarVacinaFragment_to_ListaVacinasFragment"
+            app:destination="@id/ListaVacinasFragment" />
     </fragment>
 </navigation>

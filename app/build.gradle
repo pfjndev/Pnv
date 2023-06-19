@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'dev.pfjn.pnv'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "dev.pfjn.pnv"
         minSdk 16
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -33,7 +33,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '34.0.0'
 }
 
 dependencies {
