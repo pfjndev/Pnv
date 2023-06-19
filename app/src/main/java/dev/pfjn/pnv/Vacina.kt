@@ -7,7 +7,7 @@ import android.provider.BaseColumns
 class Vacina (
     var nome: String,
     var doenca: Doenca,
-    var idade: String,
+    var idade: String?,
     var id: Long = -1
 ) {
     fun toContentValues() : ContentValues {
