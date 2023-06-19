@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
@@ -139,5 +140,36 @@ class ListaVacinasFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
         adapterVacinas!!.cursor = null
+    }
+
+
+    fun processaOpcaoMenu(item: MenuItem) : Boolean {
+        return when (item.itemId) {
+            R.id.action_adicionar -> {
+                adicionaVacina()
+                true
+            }
+            R.id.action_editar -> {
+                editarVacina()
+                true
+            }
+            R.id.action_eliminar -> {
+                eliminarVacina()
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun eliminarVacina() {
+
+    }
+
+    private fun editarVacina() {
+
+    }
+
+    private fun adicionaVacina() {
+
     }
 }
