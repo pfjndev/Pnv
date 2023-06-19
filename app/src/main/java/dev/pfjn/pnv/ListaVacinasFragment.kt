@@ -177,10 +177,13 @@ class ListaVacinasFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun editarVacina() {
-
+        val acao = ListaVacinasFragmentDirections.actionListaVacinasFragmentToEditarVacinaFragment(vacinaSelecionada!!)
+        findNavController().navigate(acao)
     }
 
     private fun adicionaVacina() {
         findNavController().navigate(R.id.action_ListaVacinasFragment_to_editarVacinaFragment)
+        val acao = ListaVacinasFragmentDirections.actionListaVacinasFragmentToEditarVacinaFragment(null)
+        findNavController().navigate(acao)
     }
 }

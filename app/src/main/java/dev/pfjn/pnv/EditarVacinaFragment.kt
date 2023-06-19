@@ -18,6 +18,7 @@ import android.widget.Toast
 private const val ID_LOADER_DOENCAS = 0
 
 class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
+    private var vacina: Vacina?= null
     private var _binding: FragmentEditarVacinaBinding? = null
 
     // This property is only valid between onCreateView and
@@ -43,6 +44,15 @@ class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         val activity = activity as MainActivity
         activity.fragment = this
         activity.idMenuAtual = R.menu.menu_guardar_cancelar
+
+        val vacina = EditarVacinaFragmentArgs.fromBundle(requireArguments()).vacina
+
+        if (vacina != null) {
+            binding.editTextNome.setText(vacina.nome)
+            binding.editTextIdade.setText(vacina.idade)
+        }
+
+        this.vacina = vacina
     }
 
     override fun onDestroyView() {
@@ -69,19 +79,25 @@ class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun guardar() {
-        val titulo = binding.editTextNome.text.toString()
-        if (titulo.isBlank()) {
+        val nome = binding.editTextNome.text.toString()
+        if (nome.isBlank()) {
             binding.editTextNome.error = getString(R.string.nome_obrigatorio)
             binding.editTextNome.requestFocus()
             return
         }
 
         val doencaId = binding.spinnerDoencas.selectedItemId
-        
+        val idade = binding.editTextIdade.text.toString()
+        if (idade.isBlank()) {
+            binding.editTextIdade.error = getString(R.string.idade_obrigatoria)
+            binding.editTextIdade.requestFocus()
+            return
+        }
+
         val vacina = Vacina(
-            titulo,
+            nome,
             Doenca("?", doencaId),
-            null
+            idade
         )
 
         val id = requireActivity().contentResolver.insert(
@@ -190,5 +206,21 @@ class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             intArrayOf(android.R.id.text1),
             0
         )
+
+        mostraDoencaSelecionadaSpinner()
+    }
+
+    private fun mostraDoencaSelecionadaSpinner() {
+        if (vacina == null) return
+
+        val idDoenca = vacina!!.doenca.id
+
+        val ultimaDoenca = binding.spinnerDoencas.count - 1
+        for (i in 0..ultimaDoenca) {
+            if (idDoenca == binding.spinnerDoencas.getItemIdAtPosition(i)) {
+                binding.spinnerDoencas.setSelection(i)
+                return
+            }
+        }
     }
 }
