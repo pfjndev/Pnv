@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_ListaVacinasFragment_to_editarVacinaFragment"
             app:destination="@id/editarVacinaFragment" />
+        <action
+            android:id="@+id/action_ListaVacinasFragment_to_eliminarVacinaFragment"
+            app:destination="@id/eliminarVacinaFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarVacinaFragment"
@@ -48,5 +51,21 @@
         <action
             android:id="@+id/action_editarVacinaFragment_to_ListaVacinasFragment"
             app:destination="@id/ListaVacinasFragment" />
+        <argument
+            android:name="vacina"
+            app:argType="dev.pfjn.pnv.Vacina"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/eliminarVacinaFragment"
+        android:name="dev.pfjn.pnv.EliminarVacinaFragment"
+        android:label="@string/eliminar_vacina_label"
+        tools:layout="@layout/fragment_eliminar_vacina">
+        <action
+            android:id="@+id/action_eliminarVacinaFragment_to_ListaVacinasFragment"
+            app:destination="@id/ListaVacinasFragment" />
+        <argument
+            android:name="vacina"
+            app:argType="dev.pfjn.pnv.Vacina" />
     </fragment>
 </navigation>
