@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         val opcaoProcessada = when (fragment) {
             is ListaVacinasFragment -> (fragment as ListaVacinasFragment).processaOpcaoMenu(item)
             is EditarVacinaFragment -> (fragment as EditarVacinaFragment).processaOpcaoMenu(item)
+            is EliminarVacinaFragment -> (fragment as EliminarVacinaFragment).processaOpcaoMenu(item)
             else -> false
         }
 

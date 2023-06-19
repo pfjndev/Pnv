@@ -172,7 +172,8 @@ class ListaVacinasFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun eliminarVacina() {
-
+        val acao = ListaVacinasFragmentDirections.actionListaVacinasFragmentToEliminarVacinaFragment(vacinaSelecionada!!)
+        findNavController().navigate(acao)
     }
 
     private fun editarVacina() {
