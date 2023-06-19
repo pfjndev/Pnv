@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.pfjn.pnv.databinding.FragmentListaVacinasBinding
 
@@ -179,6 +180,6 @@ class ListaVacinasFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun adicionaVacina() {
-
+        findNavController().navigate(R.id.action_ListaVacinasFragment_to_editarVacinaFragment)
     }
 }
