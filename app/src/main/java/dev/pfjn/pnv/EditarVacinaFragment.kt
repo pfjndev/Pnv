@@ -1,6 +1,7 @@
 package dev.pfjn.pnv
 
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -94,11 +95,39 @@ class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             return
         }
 
-        val vacina = Vacina(
-            nome,
-            Doenca("?", doencaId),
-            idade
-        )
+        if (vacina == null) {
+            val vacina = Vacina(
+                nome,
+                Doenca("?", doencaId),
+                idade
+            )
+
+            insereVacina(vacina)
+        } else {
+            val vacina = vacina!!
+            vacina.nome = nome
+            vacina.doenca = Doenca("?", doencaId)
+            vacina.idade = idade
+
+            alteraVacina(vacina)
+        }
+    }
+
+    private fun alteraVacina(vacina: Vacina) {
+        val enderecoVacina = Uri.withAppendedPath(VacinasContentProvider.ENDERECO_VACINAS, vacina.id.toString())
+        val vacinasAlteradas = requireActivity().contentResolver.update(enderecoVacina, vacina.toContentValues(), null, null)
+
+        if (vacinasAlteradas == 1) {
+            Toast.makeText(requireContext(), R.string.vacina_guardada_com_sucesso, Toast.LENGTH_LONG).show()
+            voltaListaVacinas()
+        } else {
+            binding.editTextNome.error = getString(R.string.erro_guardar_vacina)
+        }
+    }
+
+    private fun insereVacina(
+        vacina: Vacina
+    ) {
 
         val id = requireActivity().contentResolver.insert(
             VacinasContentProvider.ENDERECO_VACINAS,
@@ -110,7 +139,12 @@ class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             return
         }
 
-        Toast.makeText(requireContext(), getString(R.string.vacina_guardada_com_sucesso), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.vacina_guardada_com_sucesso),
+            Toast.LENGTH_SHORT
+        ).show()
+
         voltaListaVacinas()
     }
 

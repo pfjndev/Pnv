@@ -21,10 +21,10 @@ import org.junit.Before
 class BdInstrumentedTest {
     private fun getAppContext(): Context =
         InstrumentationRegistry.getInstrumentation().targetContext
-/*    @Before
+    @Before
     fun apagaBaseDados() {
         getAppContext().deleteDatabase(BdPnvOpenHelper.NOME_BASE_DADOS)
-    }*/
+    }
     @Test
     fun consegueAbrirBaseDados() {
         val openHelper = BdPnvOpenHelper(getAppContext())
@@ -92,7 +92,7 @@ class BdInstrumentedTest {
 
         val cursor = tabelaDoencas.consulta(
             TabelaDoencas.CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaDoencas.CAMPO_ID}=?",
             arrayOf(doencaHib.id.toString()),
             null,
             null,
