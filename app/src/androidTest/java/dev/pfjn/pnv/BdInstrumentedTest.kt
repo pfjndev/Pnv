@@ -92,7 +92,7 @@ class BdInstrumentedTest {
 
         val cursor = tabelaDoencas.consulta(
             TabelaDoencas.CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaDoencas.CAMPO_ID}=?",
             arrayOf(doencaHib.id.toString()),
             null,
             null,

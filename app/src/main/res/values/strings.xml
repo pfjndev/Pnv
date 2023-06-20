@@ -1,20 +1,41 @@
 <resources>
-    <string name="app_name">Pnv</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="main_menu_label">Menu principal</string>
-    <string name="about_fragment_label">Sobre</string>
-    <string name="sobre">Sobre</string>
-    <string name="anterior">Anterior</string>
-
-    <string name="autor">Pedro Filipe Justo Nunes, 1705125</string>
-    <string name="pesquisar">Pesquisar</string>
-    <string name="doencas">Doenças</string>
-    <string name="vacinas">Vacinas</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Pnv</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="main_menu_label">Menu principal</string>
     <string name="lista_vacinas_label">Vacinas</string>
-    <string name="nome">HPV</string>
-    <string name="doenca">Doencas</string>
-    <string name="idade">Idades</string>
+    <string name="about_fragment_label">Sobre</string>
+    <string name="nova_vacina_label">Nova vacina</string>
+    <string name="editar_vacina_label">Editar vacina</string>
+    <string name="eliminar_vacina_label">Eliminar vacina</string>
+
+    <string name="vacinas">Vacinas</string>
+    <string name="doencas">Doencas</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="sobre">Sobre</string>
+
+    <string name="adicionar">Adicionar</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
+
+    <string name="guardar">Guardar</string>
+    <string name="anterior">Anterior</string>
+    <string name="cancelar">Cancelar</string>
+
+    <string name="autor">Pedro Filipe Justo Nunes, 1705125</string>
+    <string name="nome">Nome</string>
+    <string name="doenca">Doenca</string>
+    <string name="idade">Idade</string>
+    <string name="idades">Idades</string>
+
+    <string name="nome_obrigatorio">Deve preencher o nome</string>
+    <string name="doenca_obrigatoria">Deve preencher a doenca</string>
+    <string name="idade_obrigatoria">Deve preencher a iadade</string>
+
+    <string name="vacina_guardada_com_sucesso">Vacina guardado com sucesso</string>
+    <string name="vacina_eliminada_com_sucesso">Vacina eliminada com sucesso</string>
+    <string name="erro_guardar_vacina">Não foi possível guardar a vacina</string>
+    <string name="erro_eliminar_vacina">Erro ao eliminar vacina</string>
 </resources>

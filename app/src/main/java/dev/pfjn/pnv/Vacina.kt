@@ -3,13 +3,14 @@ package dev.pfjn.pnv
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
+import java.io.Serializable
 
 class Vacina (
     var nome: String,
     var doenca: Doenca,
-    var idade: String,
+    var idade: String?,
     var id: Long = -1
-) {
+) : Serializable {
     fun toContentValues() : ContentValues {
         val valores = ContentValues()
 
@@ -21,7 +22,7 @@ class Vacina (
     }
 
     companion object {
-        fun fromCursor ( cursor : Cursor) : Vacina {
+        fun fromCursor( cursor: Cursor) : Vacina {
             val posId = cursor.getColumnIndex(BaseColumns._ID)
             val posNome = cursor.getColumnIndex(TabelaVacinas.CAMPO_NOME)
             val posIdade = cursor.getColumnIndex(TabelaVacinas.CAMPO_IDADE)

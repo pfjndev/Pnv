@@ -7,7 +7,12 @@ import android.provider.BaseColumns
 
 class TabelaVacinas(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     override fun cria() {
-        db.execSQL("CREATE TABLE $NOME_TABELA ($CHAVE_TABELA, $CAMPO_NOME TEXT NOT NULL, $CAMPO_IDADE TEXT, $CAMPO_FK_DOENCAS INTEGER NOT NULL, FOREIGN KEY ($CAMPO_FK_DOENCAS) REFERENCES ${TabelaDoencas.NOME_TABELA}(${BaseColumns._ID}) ON DELETE RESTRICT)")
+        db.execSQL("CREATE TABLE $NOME_TABELA" +
+                " ($CHAVE_TABELA," +
+                " $CAMPO_NOME TEXT NOT NULL," +
+                " $CAMPO_IDADE TEXT," +
+                " $CAMPO_FK_DOENCAS INTEGER NOT NULL," +
+                " FOREIGN KEY ($CAMPO_FK_DOENCAS) REFERENCES ${TabelaDoencas.NOME_TABELA}(${BaseColumns._ID}) ON DELETE RESTRICT)")
     }
 
     override fun consulta(
