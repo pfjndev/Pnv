@@ -49,8 +49,12 @@ class EditarVacinaFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         val vacina = EditarVacinaFragmentArgs.fromBundle(requireArguments()).vacina
 
         if (vacina != null) {
+            activity.atualizaTitulo(R.string.editar_vacina_label)
+
             binding.editTextNome.setText(vacina.nome)
             binding.editTextIdade.setText(vacina.idade)
+        } else {
+            activity.atualizaTitulo(R.string.nova_vacina_label)
         }
 
         this.vacina = vacina
